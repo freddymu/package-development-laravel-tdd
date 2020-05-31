@@ -24,5 +24,12 @@
         "psr-4": {
             "freddymu\\Press\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "freddymu\\Press\\PressBaseServiceProvider"
+            ]
+        }
     }
 }
