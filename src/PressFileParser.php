@@ -59,7 +59,7 @@ class PressFileParser
     {
         foreach ($this->data as $field => $value) {
 
-            $class = 'freddymu\\Press\Fields\\' . Str::title($field);
+            $class = $this->getField(Str::title($field));
 
             if (!class_exists($class) && !method_exists($class, 'process')) {
                 $class = 'freddymu\\Press\Fields\\Extra';
@@ -71,5 +71,18 @@ class PressFileParser
             );
 
         }
+    }
+
+    private function getField($field)
+    {
+        foreach (\freddymu\Press\Facades\Press::availableFields() as $availableField) {
+            $class = new \ReflectionClass($availableField);
+
+            if ($class->getShortName() == $field) {
+                return $class->getName();
+            }
+        }
+
+        return null;
     }
 }

@@ -37,6 +37,8 @@ class PressBaseServiceProvider extends ServiceProvider
         $this->registerFacades();
 
         $this->registerRoutes();
+
+        $this->registerFields();
     }
 
     protected function registerPublishing()
@@ -66,5 +68,16 @@ class PressBaseServiceProvider extends ServiceProvider
         $this->app->singleton('Press', function($app){
             return new \freddymu\Press\Press();
         });
+    }
+
+    protected function registerFields()
+    {
+        Press::fields([
+            Fields\Body::class,
+            Fields\Date::class,
+            Fields\Description::class,
+            Fields\Extra::class,
+            Fields\Title::class
+        ]);
     }
 }
