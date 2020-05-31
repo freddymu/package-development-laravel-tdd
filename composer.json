@@ -11,5 +11,15 @@
     "require": {},
     "require-dev": {
         "orchestra/testbench": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "freddymu\\press\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "freddymu\\press\tests\\": "tests/"
+        }
     }
 }
