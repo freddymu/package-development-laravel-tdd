@@ -4,6 +4,7 @@
 namespace freddymu\Press\Tests\Feature;
 
 
+use Carbon\Carbon;
 use freddymu\Press\PressFileParser;
 use Orchestra\Testbench\TestCase;
 
@@ -13,6 +14,20 @@ class PressFileParserTest extends TestCase
     public function the_head_and_body_gets_split()
     {
         $pressFileParser = (new PressFileParser(__DIR__ . '/../blogs/MarkFile1.md'));
+
+        $data = $pressFileParser->getdata();
+
+        $this->assertStringContainsString('title: My Title', $data[1]);
+        $this->assertStringContainsString('description: Description here', $data[1]);
+        $this->assertStringContainsString('Blog post body here', $data[2]);
+    }
+
+    /** @test */
+    public function a_string_can_also_be_used_instead()
+    {
+        $ln = PHP_EOL;
+
+        $pressFileParser = (new PressFileParser("---{$ln}title: My Title{$ln}description: Description here{$ln}---{$ln}Blog post body here"));
 
         $data = $pressFileParser->getdata();
 
@@ -39,9 +54,19 @@ class PressFileParserTest extends TestCase
 
         $data = $pressFileParser->getdata();
 
-        // Use this one if you development in Windows
-        $newline = PHP_EOL;
+        $this->assertEquals("<h1>Heading</h1>\n<p>Blog post body here</p>", $data['body']);
+    }
 
-        $this->assertEquals("# Heading{$newline}{$newline}Blog post body here", $data['body']);
+    /** @test */
+    public function a_date_field_gets_parsed()
+    {
+        $ln = PHP_EOL;
+
+        $pressFileParser = (new PressFileParser("---{$ln}date: May 14, 1988{$ln}---{$ln}"));
+
+        $data = $pressFileParser->getdata();
+
+        $this->assertInstanceOf(Carbon::class, $data['date']);
+        $this->assertEquals('05/14/1988', $data['date']->format('m/d/Y'));
     }
 }
