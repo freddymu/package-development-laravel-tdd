@@ -13,4 +13,10 @@ class Post extends Model
     protected $casts = [
         'extra' => 'array'
     ];
+
+    public function extra($field)
+    {
+        //return optional($this->extra)->$field;
+        return $this->extra[$field] ?? null;
+    }
 }

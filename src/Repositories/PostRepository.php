@@ -5,6 +5,7 @@ namespace freddymu\Press\Repositories;
 
 
 use freddymu\Press\Post;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class PostRepository
@@ -17,7 +18,18 @@ class PostRepository
             'slug' => Str::slug($post['title']),
             'title' => $post['title'],
             'body' => $post['body'],
-            'extra' => $post['extra'] ?? []
+
+            // the prop extra already cast to array in the model properties
+            // no need to use json_encode
+            'extra' => $this->extra($post)
         ]);
+    }
+
+    private function extra($post)
+    {
+        $extra = $post['extra'] ?? [];
+        $attributes = Arr::except($post, ['title', 'body', 'identifier', 'extra']);
+
+        return array_merge($extra, $attributes);
     }
 }
