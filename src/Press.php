@@ -4,6 +4,7 @@
 namespace freddymu\Press;
 
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class Press
@@ -35,6 +36,6 @@ class Press
 
     public function availableFields()
     {
-        return $this->fields;
+        return array_reverse($this->fields);
     }
 }

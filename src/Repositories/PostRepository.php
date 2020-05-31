@@ -12,6 +12,7 @@ class PostRepository
 {
     public function save($post)
     {
+
         Post::updateOrCreate([
             'identifier' => $post['identifier']
         ], [
@@ -23,11 +24,13 @@ class PostRepository
             // no need to use json_encode
             'extra' => $this->extra($post)
         ]);
+
     }
 
     private function extra($post)
     {
-        $extra = $post['extra'] ?? [];
+        $extra = json_decode($post['extra'] ?? '{}', true) ?? [];
+
         $attributes = Arr::except($post, ['title', 'body', 'identifier', 'extra']);
 
         return array_merge($extra, $attributes);

@@ -26,7 +26,7 @@ class ProcessCommand extends Command
 
             $posts = Press::driver()->fetchPosts();
 
-            $this->info('NUmber of Posts: ' . count($posts));
+            $this->info('Number of Posts: ' . count($posts));
 
             foreach ($posts as $post) {
 
