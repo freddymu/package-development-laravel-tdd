@@ -1,0 +1,15 @@
+{
+    "name": "freddymu/press",
+    "description": "An elegant markdown-powered blog for the Laravel framework.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freddy",
+            "email": "fredhopelane@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^5.3"
+    }
+}
