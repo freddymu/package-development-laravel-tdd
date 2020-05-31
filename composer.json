@@ -8,18 +8,20 @@
             "email": "fredhopelane@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "erusev/parsedown": "^1.7"
+    },
     "require-dev": {
         "orchestra/testbench": "^5.3"
     },
     "autoload": {
         "psr-4": {
-            "freddymu\\press\\": "src/"
+            "freddymu\\Press\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "freddymu\\press\tests\\": "tests/"
+            "freddymu\\Press\\Tests\\": "tests/"
         }
     }
 }
