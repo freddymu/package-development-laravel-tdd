@@ -5,7 +5,7 @@ namespace freddymu\Press\Tests\Feature;
 
 
 use freddymu\Press\MarkdownParser;
-use Orchestra\Testbench\TestCase;
+use freddymu\Press\Tests\TestCase;
 
 class MarkdownTest extends TestCase
 {

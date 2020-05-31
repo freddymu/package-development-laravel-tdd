@@ -6,7 +6,7 @@ namespace freddymu\Press\Tests\Feature;
 
 use Carbon\Carbon;
 use freddymu\Press\PressFileParser;
-use Orchestra\Testbench\TestCase;
+use freddymu\Press\Tests\TestCase;
 
 class PressFileParserTest extends TestCase
 {
