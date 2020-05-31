@@ -4,6 +4,7 @@
 namespace freddymu\Press;
 
 
+use freddymu\Press\Console\ProcessCommand;
 use Illuminate\Support\ServiceProvider;
 
 class PressBaseServiceProvider extends ServiceProvider
@@ -15,7 +16,9 @@ class PressBaseServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->commands([
+            ProcessCommand::class
+        ]);
     }
 
     private function registerResources()
