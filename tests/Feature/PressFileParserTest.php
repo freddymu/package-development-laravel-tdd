@@ -31,4 +31,17 @@ class PressFileParserTest extends TestCase
         $this->assertEquals('My Title', $data['title']);
         $this->assertEquals('Description here', $data['description']);
     }
+
+    /** @test */
+    public function the_body_gets_saved_and_trimmed()
+    {
+        $pressFileParser = (new PressFileParser(__DIR__ . '/../blogs/MarkFile1.md'));
+
+        $data = $pressFileParser->getdata();
+
+        // Use this one if you development in Windows
+        $newline = PHP_EOL;
+
+        $this->assertEquals("# Heading{$newline}{$newline}Blog post body here", $data['body']);
+    }
 }
