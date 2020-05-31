@@ -6,6 +6,7 @@ namespace freddymu\Press\Console;
 
 use freddymu\Press\Facades\Press;
 use freddymu\Press\Post;
+use freddymu\Press\Repositories\PostRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,7 @@ class ProcessCommand extends Command
 
     protected $description = 'Update blog posts.';
 
-    public function handle()
+    public function handle(PostRepository $postRepository)
     {
         if (Press::configNotPublished()) {
             return $this->warn('Please publish the config file by running \'php artisan vendor:publish --tag=press-config\'');
@@ -25,15 +26,13 @@ class ProcessCommand extends Command
 
             $posts = Press::driver()->fetchPosts();
 
+            $this->info('NUmber of Posts: ' . count($posts));
+
             foreach ($posts as $post) {
 
-                Post::create([
-                    'identifier' => $post['identifier'],
-                    'slug' => Str::slug($post['title']),
-                    'title' => $post['title'],
-                    'body' => $post['body'],
-                    'extra' => $post['extra'] ?? []
-                ]);
+                $postRepository->save($post);
+
+                $this->info('Post: ' . $post['title']);
 
             }
 
