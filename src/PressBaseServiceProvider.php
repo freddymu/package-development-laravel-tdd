@@ -7,6 +7,7 @@ namespace freddymu\Press;
 use freddymu\Press\Console\ProcessCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use freddymu\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,11 @@ class PressBaseServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'press');
+
+        // this must be executed before register routes
+        // because registerRoutes used the facade
+        $this->registerFacades();
+
         $this->registerRoutes();
     }
 
@@ -53,5 +59,12 @@ class PressBaseServiceProvider extends ServiceProvider
             'prefix' => Press::path(),
             'namespace' => 'freddymu\Press\Http\Controllers'
         ];
+    }
+
+    protected function registerFacades()
+    {
+        $this->app->singleton('Press', function($app){
+            return new \freddymu\Press\Press();
+        });
     }
 }

@@ -4,11 +4,9 @@
 namespace freddymu\Press\Console;
 
 
+use freddymu\Press\Facades\Press;
 use freddymu\Press\Post;
-use freddymu\Press\Press;
-use freddymu\Press\PressFileParser;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class ProcessCommand extends Command
